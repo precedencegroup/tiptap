@@ -21,7 +21,7 @@ function triggerCharacter({
     const prefix = startOfLine ? '^' : ''
     const regexp = allowSpaces
       ? new RegExp(`${prefix}${escapedChar}.*?(?=\\s${escapedChar}|$)`, 'gm')
-      : new RegExp(`${prefix}(?:^)?${escapedChar}[^\\s${escapedChar}]*`, 'gm')
+      : new RegExp(`${prefix}(?:^)?${escapedChar}[^\\s|\\0${escapedChar}]*`, 'gm')
 
     // Lookup the boundaries of the current node
     const textFrom = $position.before()
