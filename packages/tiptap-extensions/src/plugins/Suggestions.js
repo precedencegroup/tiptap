@@ -180,7 +180,7 @@ export default function SuggestionsPlugin({
       // Apply changes to the plugin state from a view transaction.
       apply(tr, prev) {
         const { selection } = tr
-        const next = { ...prev }
+        const next = Object.assign({}, prev)
 
         // We can only be suggesting if there is no selection
         if (selection.from === selection.to) {

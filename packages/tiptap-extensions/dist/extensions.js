@@ -1117,9 +1117,7 @@
         // Apply changes to the plugin state from a view transaction.
         apply: function apply(tr, prev) {
           var selection = tr.selection;
-
-          var next = _objectSpread2({}, prev); // We can only be suggesting if there is no selection
-
+          var next = Object.assign({}, prev); // We can only be suggesting if there is no selection
 
           if (selection.from === selection.to) {
             // Reset active state if we just left the previous suggestion range
