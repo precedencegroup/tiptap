@@ -1,0 +1,38 @@
+version: "2.0"
+
+services:
+  app:
+    image: mcr.microsoft.com/vscode/devcontainers/javascript-node:0-14-buster
+    working_dir: /workspaces/app
+    volumes:
+      - global_ssh:/root/.ssh
+      - global_yarn:/usr/local/share/.cache/yarn
+      - ..:/workspaces/app
+      - node_modules:/workspaces/app/node_modules
+    command: sleep infinity
+    labels:
+      - "traefik.http.middlewares.${COMPOSE_PROJECT_NAME}-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-http.rule=Host(`${COMPOSE_PROJECT_NAME}.${REVPROXY_TLD}`)"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-http.entrypoints=http"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-http.middlewares=${COMPOSE_PROJECT_NAME}-https-redirect"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-https.rule=Host(`${COMPOSE_PROJECT_NAME}.${REVPROXY_TLD}`)"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-https.entrypoints=https"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-https.service=${COMPOSE_PROJECT_NAME}-http"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-https.tls=true"
+      - "traefik.http.services.${COMPOSE_PROJECT_NAME}-http.loadbalancer.server.scheme=http"
+      - "traefik.http.services.${COMPOSE_PROJECT_NAME}-http.loadbalancer.server.port=3000"
+      - "traefik.enable=true"
+    networks:
+      - default
+      - web
+
+volumes:
+  node_modules:
+  global_ssh:
+    external: true
+  global_yarn:
+    external: true
+
+networks:
+  web:
+    external: true

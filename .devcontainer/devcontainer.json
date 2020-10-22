@@ -1,0 +1,6 @@
+{
+	"name": "tiptap",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "app",
+	"workspaceFolder": "/workspaces/app"
+}
