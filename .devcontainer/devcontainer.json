@@ -2,5 +2,9 @@
 	"name": "tiptap",
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "app",
-	"workspaceFolder": "/workspaces/app"
+	"workspaceFolder": "/workspaces/app",
+	"extensions": [
+		"octref.vetur",
+		"dbaeumer.vscode-eslint"
+	]
 }
