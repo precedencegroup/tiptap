@@ -5,6 +5,7 @@
 	"workspaceFolder": "/workspaces/app",
 	"extensions": [
 		"octref.vetur",
-		"dbaeumer.vscode-eslint"
+		"dbaeumer.vscode-eslint",
+		"eamodio.gitlens"
 	]
 }
